@@ -13,8 +13,8 @@ export const OrderDetailsSection = (): JSX.Element => {
         {/* Success Icon with background */}
         <div className="relative w-32 h-32 md:w-40 md:h-40">
           <Image
-            src="/confirm.png"
-            alt="Background"
+            src="/cofirm.png"
+            alt="Confirmation"
             fill
             className="object-contain"
           />
@@ -36,12 +36,12 @@ export const OrderDetailsSection = (): JSX.Element => {
         </p>
 
         {/* Card */}
-        <Card className="max-w-xl w-full rounded-2xl">
-          <CardContent className="flex flex-col items-center gap-4 py-6 bg-white">
+        <Card className="max-w-xl w-full ">
+          <CardContent className="flex rounded-3xl flex-col items-center gap-4 py-6 bg-white">
             <Image
-              src="/image-334.png"
+              src="/pes.png"
               alt="Prescription"
-              width={112}
+              width={112} 
               height={112}
               className="h-28 w-auto"
             />

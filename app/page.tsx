@@ -2,9 +2,9 @@
 import Image from "next/image";
 import { Button } from "../components/ui/button";
 import { Separator } from "../components/ui/separator";
-import { OrderConfirmationSection } from "./sections/OrderConfirmationSection";
-import { OrderDetailsSection } from "./sections/OrderDetailsSection";
-import { OrderSummarySection } from "./sections/OrderSummarySection";
+import { OrderConfirmationSection } from "../components/OrderConfirmationSection ";
+import { OrderDetailsSection } from "../components/OrderDetailsSection";
+import { OrderSummarySection } from "../components/OrderSummarySection";
 
 const priceBreakdownItems = [
   {
