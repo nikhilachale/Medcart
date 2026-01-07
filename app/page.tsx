@@ -1,65 +1,170 @@
-import Image from "next/image";
 
-export default function Home() {
+import Image from "next/image";
+import { Button } from "../components/ui/button";
+import { Separator } from "../components/ui/separator";
+import { OrderConfirmationSection } from "./sections/OrderConfirmationSection";
+import { OrderDetailsSection } from "./sections/OrderDetailsSection";
+import { OrderSummarySection } from "./sections/OrderSummarySection";
+
+const priceBreakdownItems = [
+  {
+    label: "Item total (MRP)",
+    value: "₹4274.43",
+    valueClassName: "text-black",
+  },
+  {
+    label: "Handling charges",
+    value: "₹45",
+    valueClassName: "text-black line-through",
+  },
+  { label: "Total Discount:", value: "-₹50", valueClassName: "text-[#106536]" },
+  { label: "Coupon Code", value: "-₹70", valueClassName: "text-[#106536]" },
+  { label: "Medcart Credits", value: "-₹70", valueClassName: "text-[#106536]" },
+  { label: "Shipping fee", value: "₹12", valueClassName: "text-black" },
+];
+
+export default function Page() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="bg-white w-full relative">
+      {/* Hide OrderConfirmationSection on small screens */}
+      <div className="hidden lg:block">
+        <OrderConfirmationSection />
+      </div>
+
+      {/* Stack vertically on small screens, side by side on large screens */}
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-8 px-4 lg:px-8">
+        <div className="w-full lg:flex-1">
+          <OrderDetailsSection />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+
+        <aside className="w-full lg:w-89.5 pt-2 px-2 lg:px-0">
+          <section className="mb-6">
+            <h2 className="font-['Poppins',Helvetica] font-semibold text-black text-base mb-2">
+              Delivering to
+            </h2>
+            <p className="font-['Poppins',Helvetica] font-normal text-black text-base mb-2">
+              Home
+            </p>
+            <p className="font-['Poppins',Helvetica] font-normal text-[#666666] text-sm leading-5.25 mb-4">
+              Singhal General store, Varun Path, Varun Nagar, JAIPUR, RAJASTHAN,
+              302020, India
+            </p>
+            <p className="font-['Poppins',Helvetica] font-semibold text-[#ff6d00] text-sm">
+              Expected delivery date : 25 Dec &#39;25 - 27 Dec &#39;25
+            </p>
+          </section>
+
+          <Separator className="my-6" />
+
+          <section className="mb-6">
+            <h2 className="font-['Poppins',Helvetica] font-semibold text-black text-base mb-4">
+              Order Summary
+            </h2>
+            <p className="font-['Poppins',Helvetica] font-normal text-black text-base mb-4">
+              Items
+            </p>
+
+            <OrderSummarySection  />
+
+            <p className="text-sm font-['Poppins',Helvetica] font-normal text-black  mt-3">+4 more items</p>
+          </section>
+
+         <Separator className="my-6" />
+
+          <section className="mb-6">
+           
+            {priceBreakdownItems.map((item, index) => (
+              <div
+                key={index}
+                className="flex justify-between items-center mb-3"
+              >
+                <span
+                  className={`font-['Poppins',Helvetica] font-normal text-sm ${item.label.includes("Discount") || item.label.includes("Coupon") || item.label.includes("Credits") ? "text-[#106536]" : "text-[#666666]"}`}
+                >
+                  {item.label}
+                </span>
+                <span
+                  className={`font-['Poppins',Helvetica] font-normal text-sm ${item.valueClassName}`}
+                >
+                  {item.value}
+                </span>
+              </div>
+            ))}
+          </section>
+
+          <Separator className="my-6" />
+
+          <div className="flex justify-between items-center mb-6">
+            <span className="font-['Poppins',Helvetica] font-semibold text-black text-base">
+              Amount paid
+            </span>
+            <span className="font-['Poppins',Helvetica] font-semibold text-black text-base">
+              ₹1,999.00*
+            </span>
+          </div>
+
+          <div className="relative h-13.25 mb-6 rounded-lg overflow-hidden">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              className="absolute inset-0 w-full h-full"
+              alt="Savings background"
+              src="/vector-515.svg"
+              fill
+              loading="eager"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+            <div className="relative flex items-center justify-center h-full gap-2">
+              <div className="w-5.25 h-5.25 flex items-center justify-center">
+                <Image
+                  className="w-3.75 h-3.75 object-cover"
+                  alt="Savings icon"
+                  src="/image-340.png"
+                  width={15}
+                  height={15}
+                />
+              </div>
+              <span className="font-['Poppins',Helvetica] font-semibold text-white text-sm">
+                You saved ₹577.00 on this order!
+              </span>
+            </div>
+          </div>
+
+          <p className="font-['Poppins',Helvetica] font-normal text-xs mb-6">
+            <span className="text-[#666666]">
+              *Prices shown on the page are indicative, inclusive of all taxes
+              and may slightly vary once the final bill.....{" "}
+            </span>
+            <span className="text-[#60096a]">See more</span>
+          </p>
+
+          <Separator className="my-6" />
+
+          <section className="mb-8">
+            <h3 className="font-['Poppins',Helvetica] font-semibold text-black text-base mb-4">
+              Paid via UPI
+            </h3>
+            <p className="font-['Poppins',Helvetica] font-normal text-black text-base mb-2">
+              From : Slice cc (XX9395)
+            </p>
+            <p className="font-['Poppins',Helvetica] font-normal text-[#666666] text-sm mb-2">
+              Txn ID : 123456789012345
+            </p>
+            <p className="font-['Poppins',Helvetica] font-normal text-[#666666] text-sm">
+              Date : 29 Dec &apos;25 8:10 PM
+            </p>
+          </section>
+
+          <div className="flex gap-4 mb-8">
+            <Button
+             
+              className="flex-1 h-11.25 rounded-lg border  border-[#60096a] font-['Poppins',Helvetica] font-semibold text-[#710b7c] text-sm hover:bg-[#60096a]/10"
+            >
+              Explore more
+            </Button>
+            <Button className="flex-1 h-11.25 rounded-lg bg-[linear-gradient(90deg,rgba(110,11,120,1)_0%,rgba(179,17,197,1)_100%)] font-['Poppins',Helvetica] font-semibold text-white text-sm hover:opacity-90">
+              Track Order
+            </Button>
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }
